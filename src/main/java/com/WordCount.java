@@ -23,10 +23,11 @@ public class WordCount {
 		
 		@Override //이 오너테이션을 썻을 때 오류가 나면 제대로 안 된 것
 		public void map(LongWritable ke, Text value, Context context) throws IOException, InterruptedException {
-			String line = value.toString();
+			String line = value.toString();	//이렇게 하면 대소문자를 가리지 않는다고 함
 			StringTokenizer st = new StringTokenizer(line, "\t\r\n\f|,.()<>"); 
 			//line에서 저런 것도 다 잘라버림
 			while(st.hasMoreTokens()) {
+				word.set(st.nextToken().toLowerCase());
 				context.write(word,lw);	//add throws 누러줌
 			}
 		}
